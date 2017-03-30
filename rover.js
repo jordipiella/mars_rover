@@ -165,4 +165,4 @@ function moveRover(event) {
 //
 //goLeft(myRover);
 //goRight(myRover);
-goForward(myRover);
+//goForward(myRover);
