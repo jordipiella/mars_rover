@@ -3,37 +3,13 @@ var myRover = {
   direction: 'N'
 };
 
-/*var cols = 11;
-var rows = 11;
-var positionArray = [];
+var obstacle1 = '[2, 0]';
+var obstacle2 = '[2, 2]';
 
-for (var i = 0; i < cols; i++) {
-    for (var j = 0; j < rows; j++) {
-      document.write('<div class="" style="background-color:#333; float:left; width:30px; height:30px;"></div>');
-
-    }
-    document.write('<div style="clear:both"></div>');
-}*/
-
-/*document.write('<table>');
-var gridWidth = 10;
-var gridHeight = 10;
-var grid = [];
-for(var y = 0; y < gridHeight; y++)
-{
-    document.write('<tr>');
-    grid.push([]);
-    for(var x = 0; x < gridWidth; x++)
-    {
-        document.write('<td id="" style="border: black solid 1px; width:20px; height:20px" onclick="alert(\'clicked\');">');
-        document.write(grid[y][x]);
-        grid[y].push(0);
-        document.write('</td>');
-    }
-    document.write('</tr>');
-}
-document.write('</table>');*/
 function goForward(rover) {
+
+
+
   switch(rover.direction) {
     case 'N':
       rover.position[0]++
@@ -61,7 +37,24 @@ function goForward(rover) {
     rover.position[1] = -5;
   }
 
-  console.log("New Rover Position: [" + rover.position[0] + ", " + rover.position[1] + "]")
+
+  var actualPosition = "[" + rover.position[0] + ", " + rover.position[1] + "]";
+
+  console.log("New Rover Position:" + actualPosition);
+  var actualPosition = "[" + rover.position[0] + ", " + rover.position[1] + "]";
+  //console.log("ActualPosition" + actualPosition)
+  console.log("Obstacle1: " + obstacle1)
+  console.log("Obstacle2: " + obstacle2)
+  if (actualPosition == obstacle1){
+    alert('stop');
+    goBack(myRover);
+  }
+  if (actualPosition == obstacle2){
+    alert('stop');
+    goBack(myRover);
+  }
+
+
 }
 
 
@@ -97,8 +90,21 @@ function goBack(rover) {
     rover.position[1] = -5;
   }
 
+  var actualPosition = "[" + rover.position[0] + ", " + rover.position[1] + "]";
 
-  console.log("New Rover Position: [" + rover.position[0] + ", " + rover.position[1] + "]")
+  console.log("New Rover Position:" + actualPosition);
+
+  //console.log("ActualPosition" + actualPosition)
+    console.log("Obstacle1: " + obstacle1)
+    console.log("Obstacle2: " + obstacle2)
+  if (actualPosition == obstacle1){
+    alert('stop');
+    goForward(myRover);
+  }
+  if (actualPosition == obstacle2){
+    alert('stop');
+    goForward(myRover);
+  }
 }
 
 function goRight(rover) {
@@ -116,7 +122,7 @@ function goRight(rover) {
     case 'W':
       rover.direction = "N";
       break;
-  };
+  }
   console.log('New direction: '+ rover.direction);
 
 }
@@ -135,12 +141,13 @@ function goLeft(rover) {
     case 'W':
       rover.direction = "S";
       break;
-  };
+  }
   console.log('New direction: '+ rover.direction);
 
 }
 function moveRover(event) {
     var x = event.keyCode;
+
     if (x == 70) {
         //alert ("You pressed the f");
         goForward(myRover);
@@ -158,6 +165,44 @@ function moveRover(event) {
         goLeft(myRover);
     }
 }
+function moveRover2(keys) {
+    var x = keys;
+    if (x == 'f') {
+        //alert ("You pressed the f");
+        goForward(myRover);
+    }
+    if (x == 'b') {
+        //alert ("You pressed the b");
+        goBack(myRover);
+    }
+    if (x == 'r') {
+        //alert ("You pressed the r");
+        goRight(myRover);
+    }
+    if (x == 'l') {
+        //alert ("You pressed the l");
+        goLeft(myRover);
+    }
+}
+var insertMove = "";
+document.getElementById('submit').addEventListener('click', function(){
+  insertMove = document.getElementById('insertMove').value;
+
+  var strMove = insertMove;
+  var arrayResultado = [];
+  arrayResultado = strMove.split("");
+  console.log(arrayResultado);
+  for (var i = 0; i < arrayResultado.length; i++) {
+    //console.log(arrayResultado[i]);
+    moveRover2(arrayResultado[i]);
+  }
+
+});
+
+
+
+
+//moveRover2('b');
 //f avanzar 70
 //b retroceder 66
 //r right 82
